@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "950761851090",
+    "firebase_url": "https://foodcart-project.firebaseio.com",
+    "project_id": "foodcart-project",
+    "storage_bucket": "foodcart-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950761851090:android:9cfc7c9644485a5c",
+        "android_client_info": {
+          "package_name": "shop.cart.foodcart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950761851090-a9pbok7p3si5d5i3qdhn1e865uehufrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVSAvggLjTgX8KSHvuUe2rwDsWrnML6W0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
