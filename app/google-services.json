@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "950761851090-kbp4k3pribj6mngm4prcv5ob6bojtcar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.cart.foodcart",
+            "certificate_hash": "9f1e684d6e3e75f2631d54512e738b4da9750a7a"
+          }
+        },
+        {
           "client_id": "950761851090-a9pbok7p3si5d5i3qdhn1e865uehufrj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950761851090-a9pbok7p3si5d5i3qdhn1e865uehufrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
