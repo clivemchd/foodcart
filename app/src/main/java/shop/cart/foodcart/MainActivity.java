@@ -39,25 +39,19 @@ public class MainActivity extends AppCompatActivity
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("Inside", String.valueOf(user));
 
-        if (user == null) {
-            // user auth state is changed - user is null
-            // launch signin activity
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
-        }
 
-//        authListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user == null) {
-//                    // user auth state is changed - user is null
-//                    // launch sigup activity
-//                    startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-//                    finish();
-//                }
-//            }
-//        };
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch sigup activity
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +80,11 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    //sign out method
+    public void signOut() {
+        auth.signOut();
     }
 
     @Override
@@ -117,15 +116,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_cart) {
 
         } else if (id == R.id.nav_logout) {
-
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
     }
 }
