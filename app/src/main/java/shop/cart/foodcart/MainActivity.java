@@ -1,6 +1,7 @@
 package shop.cart.foodcart;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -27,10 +28,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import static android.R.attr.data;
+import static android.R.attr.id;
+import static android.R.attr.name;
 import static shop.cart.foodcart.R.layout.activity_main;
 import static shop.cart.foodcart.R.layout.content_main;
 
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,9 @@ public class MainActivity extends AppCompatActivity
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        //get firebase Storage instance
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -82,20 +92,41 @@ public class MainActivity extends AppCompatActivity
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
                 long length = (long) map.get("count");
-                for (int i = 0; i < length; i++){
+                for (int i = 1; i <= length; i++){
                     ImageButton imageBtn = new ImageButton(MainActivity.this);
                     LinearLayout linearLayout = (LinearLayout)findViewById(R.id.linear_layout_main);
-                    ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                    imageBtn.setImageResource(R.mipmap.meal2_img);
-                    imageBtn.setMaxWidth(140);
-                    imageBtn.setMaxHeight(80);
-                    linearLayout.addView(imageBtn, lp);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.height = 700;
 
-//                    LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-//                    imageBtn.setLayoutParams(imageParams);
+//                    Uri imgUri= Uri.parse("https://firebasestorage.googleapis.com/v0/b/foodcart-project.appspot.com/o/meal1.jpg?alt=media&token=3cde501f-9eed-4d95-86d7-4a95e73f741d");
 
+
+//                    mStorageRef.child("users/me/profile.png").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                        @Override
+//                        public void onSuccess(byte[] bytes) {
+//                            // Use the bytes to display the image
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            // Handle any errors
+//                        }
+//                    });
+
+
+
+//                    imageBtn.setImageURI(null);
+//                    imageBtn.setImageURI(imgUri);
+                    imageBtn.setImageResource(R.mipmap.meal2);
+                    imageBtn.setScaleType(ImageButton.ScaleType.FIT_XY);
+                    imageBtn.setLayoutParams(params);
+                    linearLayout.addView(imageBtn);
                 }
-                Log.d("success data", "Value is: " +  map.get("count"));
+                Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
+                while(items.hasNext()){
+                    DataSnapshot item = items.next();
+                    Log.d("Value", String.valueOf(item.child("name").getValue()));
+                }
             }
 
             @Override
