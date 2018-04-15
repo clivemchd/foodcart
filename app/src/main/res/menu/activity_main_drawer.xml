@@ -13,6 +13,10 @@
     </group>
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/user_orders"
+            android:icon="@drawable/ic_menu_myorders"
+            android:title="@string/user_orders" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_logout"
             android:title="Logout" />
